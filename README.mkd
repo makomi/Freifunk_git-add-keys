@@ -1,0 +1,113 @@
+# Freifunk git-add-keys
+
+simple BASH script for bulk adding [fastd]-keys to a [Freifunk] community's Git repo
+
+
+## What it does
+
+It automates adding lots of [fastd]-keys to a Git repo, that is used to manage the access of [Freifunk] nodes to the local Freifunk community's network.
+
+**Features**
+* Bulk add fastd-keys from a file
+* Check for each key, if it already exists in some file in the repo, avoiding multiple entry.
+* If a key already exits and the filename it resides in differs from the node name in our new `key.txt`: update the filename. Else: skip.
+* If a file with the same node name exists, ask the user whether to update the key or not.
+* Basically, only create a new key file, if the file does not already exist. Otherwise, use the available information to resolve inconsistencies.
+
+
+## Basic usage
+
+### Syntax
+
+**Command-line call**
+
+    $ ./git-add-keys.sh  <path to file with keys> <path to Git repo>
+
+**Input key file**
+
+    Line 1: nodename_1 key_1
+    Line 2: nodename_2 key_2
+    ...
+    Line n: nodename_n key_n
+
+### Example
+
+**Git repo:** `ffhl-fastd-keys`
+
+**Input key file:** `key.txt`
+
+    huexstrasse121 3df276d56631eb8cbcea0ee9..................b4734dc3494dd19c3b71f8
+    huexstrasse122 08d7257e57cc9bb7674e3c62..................754d9f46f56232a0431f31
+    huexstrasse123 87259ece2b3b36030d0ae3a7..................47c6386b00e73c2eda202d
+    huexstrasse124 42e99b52f5a4cebf58d5fd35..................037c84445b8c9239d452c8
+    huexstrasse125 88be896a7655c50cc4778b3c..................c1073c6e292941dc92de6e
+    huexstrasse126 244f873f83d6df248829c33a..................3167c665b7e1678c299f4d
+    huexstrasse127 c7026b900c8258f16d7eda8a..................c60e6b8534ce17f759a39f
+    huexstrasse128 a634e43476b63ebdc72a1fdc..................bd442201b60b25eac9e243
+    huexstrasse129 f2288fb6fb1d426d52c904d9..................3fe63d2fc2db326d5056cd
+    huexstrasse130 3df276d56631eb8cbcea0ee9..................b4734dc3494dd19c3b71f8
+    huexstrasse131 0842be8a28ba977090ad9c4f..................35b6c38821496eeae7955d
+    huexstrasse132 b31eeaebedab9d2d2e1161e7..................a83bc978b802de26c17d4b
+    a_common_name bece1c6ecf8da90a8d53b4a7..................16e456b35a9e69d48d361d
+    my_priv_node dc58ded6cd31039c44f07183..................8785a337011c697e0b2e41
+
+**Command-line call**
+
+    $ ./git-add-keys.sh key.txt ffhl-fastd-keys
+    Provide the owner's name and email address in the following format.
+    Owner name <email address>: Friedrich Freudenfunker <ff@example.com>
+    Rename: huexstrasse_temp → huexstrasse121
+    Exists: huexstrasse122
+    Exists: huexstrasse123
+    Add   : huexstrasse124 42e99b52f5a4cebf58d5fd35..................037c84445b8c9239d452c8
+    Add   : huexstrasse125 88be896a7655c50cc4778b3c..................c1073c6e292941dc92de6e
+    Add   : huexstrasse126 244f873f83d6df248829c33a..................3167c665b7e1678c299f4d
+    Add   : huexstrasse127 c7026b900c8258f16d7eda8a..................c60e6b8534ce17f759a39f
+    Add   : huexstrasse128 a634e43476b63ebdc72a1fdc..................bd442201b60b25eac9e243
+    Add   : huexstrasse129 f2288fb6fb1d426d52c904d9..................3fe63d2fc2db326d5056cd
+    Add   : huexstrasse130 3df276d56631eb8cbcea0ee9..................b4734dc3494dd19c3b71f8
+    Add   : huexstrasse131 0842be8a28ba977090ad9c4f..................35b6c38821496eeae7955d
+    Add   : huexstrasse132 b31eeaebedab9d2d2e1161e7..................a83bc978b802de26c17d4b
+    Exists: a_common_name – update key? [Y|n] n
+    Keep  : a_common_name
+    Exists: my_priv_node – update key? [Y|n] y
+    Update: my_priv_node dc58ded6cd31039c44f07183..................8785a337011c697e0b2e41
+
+**Output file:** `huexstrasse130`
+
+    # Friedrich Freudenfunker <ff@example.com>
+    key "3df276d56631eb8cbcea0ee9..................b4734dc3494dd19c3b71f8";
+
+**Output file:** `my_priv_node`
+
+    # Friedrich Freudenfunker <ff-old-email@example.com>
+    key "dc58ded6cd31039c44f07183..................8785a337011c697e0b2e41";
+
+
+## Contributing
+
+This script currently does everything I need it to do. However, if you have a neat idea for a new feature or some other improvement, I would love to recieve a pull request from you.
+
+1. [Fork it][fork]
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit all your changes: `git commit -am 'add some feature'`
+4. Push to your feature branch: `git push origin my-new-feature`
+5. Submit a [pull request][pr]
+
+
+## License
+
+**GNU General Public License v3.0**
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License, version 3, as published by the Free Software Foundation.
+
+See [LICENSE](LICENSE) for details.
+
+
+
+[Freifunk]: http://freifunk.net/
+[fastd]: https://projects.universe-factory.net/projects/fastd/wiki
+[fork]: https://help.github.com/articles/fork-a-repo/
+[pr]: https://help.github.com/articles/creating-a-pull-request/
+[license-file]: LICENSE
+
