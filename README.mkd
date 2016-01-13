@@ -104,6 +104,11 @@ This program is free software; you can redistribute it and/or modify it under th
 See [LICENSE](LICENSE) for details.
 
 
+## Source
+
+This project was developed by Matthias Kolja Miehl. You can get the newest version from the [project's website](http://github.com/makomi/freifunk_git-add-keys/).
+
+
 
 [Freifunk]: http://freifunk.net/
 [fastd]: https://projects.universe-factory.net/projects/fastd/wiki
